@@ -1,5 +1,6 @@
 Windows Phone is missing a chooser task for picking a contact (not just email or phone number) so I made one!
 
+```csharp
 private void button1_Click(object sender, RoutedEventArgs e)
 {
     var contactChooser = new ContactChooserTask();
@@ -11,3 +12,4 @@ void contactChooser_OnSelected(object sender, ContactChooserEventArgs e)
 {
     MessageBox.Show(e.Contact.DisplayName);
 }
+```
