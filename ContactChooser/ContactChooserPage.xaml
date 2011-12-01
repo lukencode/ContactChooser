@@ -1,0 +1,72 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ContactChooser.ContactChooserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="LongListGroupHeader">
+            <ListBoxItem>
+                <Grid Margin="0,6,0,6">
+                    <Grid  Width="64" Height="64" HorizontalAlignment="Left" Background="{StaticResource PhoneAccentBrush}">
+                        <TextBlock Margin="6,0,0,0" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Style="{StaticResource PhoneTextExtraLargeStyle}" Text="{Binding Title}" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </Grid>
+            </ListBoxItem>
+        </DataTemplate>
+        <DataTemplate x:Key="LongListGroupItemTemplate">
+            <Border Background="{Binding GroupBackgroundBrush}" Width="99" Height="99" Margin="6" IsHitTestVisible="{Binding HasItems}">
+                <TextBlock Text="{Binding Title}"
+                                FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                FontSize="36"
+                                Margin="{StaticResource PhoneTouchTargetOverhang}"
+                                Foreground="{StaticResource PhoneForegroundBrush}"
+                                VerticalAlignment="Bottom"/>
+            </Border>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+            <TextBlock x:Name="ApplicationTitle" Text="CHOOSE CONTACT" Style="{StaticResource PhoneTextNormalStyle}" Margin="24,12,12,12"/>
+        </StackPanel>
+
+        <toolkit:LongListSelector Grid.Row="1" Margin="24,36,12,0" ItemsSource="{Binding Contacts}" x:Name="lstMain" GroupHeaderTemplate="{StaticResource LongListGroupHeader}" GroupItemTemplate="{StaticResource LongListGroupItemTemplate}" SelectionChanged="lstMain_SelectionChanged">
+            <toolkit:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <ListBoxItem>
+                        <Grid Margin="0,6,0,6" HorizontalAlignment="Stretch">
+                            <Grid Margin="0,0,12,0" HorizontalAlignment="Left">
+                                <Border Width="64" Height="64" Background="{StaticResource PhoneChromeBrush}" ></Border>
+                                <Image Source="{Binding Image}" Width="64" Height="64"></Image>
+                            </Grid>
+                            <TextBlock Text="{Binding DisplayName}" Margin="76,6,0,0" Style="{StaticResource PhoneTextTitle2Style}"></TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                </DataTemplate>
+            </toolkit:LongListSelector.ItemTemplate>
+            <toolkit:LongListSelector.GroupItemsPanel>
+                <ItemsPanelTemplate>
+                    <toolkit:WrapPanel />
+                </ItemsPanelTemplate>
+            </toolkit:LongListSelector.GroupItemsPanel>
+        </toolkit:LongListSelector>
+    </Grid>
+
+</phone:PhoneApplicationPage>
